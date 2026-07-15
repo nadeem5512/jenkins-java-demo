@@ -1,11 +1,22 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
-        stage('Hello') {
+
+        stage('Build Java Application') {
+            agent {
+                label 'linux && java'
+            }
+
             steps {
-                echo 'Hello from Jenkins Pipeline!'
+                echo 'Running on Java Agent'
+
+                sh 'java -version'
+                sh 'mvn -version'
+
+                sh 'mvn clean package'
             }
         }
+
     }
 }
